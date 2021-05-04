@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<div class="center-column">
+	
+<form method="POST" action="">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Post Feedback" class="btn btn-info">
+	<div class="d-grid gap-2">
+		<a href="{% url 'index' %}" class="btn btn-secondary">Go Back</a>
+	</div>
+	<script>
+		var name = "{{ user.id }}";
+		document.getElementById('userid').value = name;
+	</script>
+</form>
+<hr>
+{% for item in list_feed %}
+{% if item.user.id == request.user.id %}
+<div class="item-row">
+<style>
+	.aligna{
+		text-align: right;
+	}
+</style>
+		<a href="{% url 'f_edit' item.id %}" class="btn btn-sm btn-dark">Edit</a> <a href="{% url 'delete-feed' item.id %}" class="btn btn-sm btn-danger">Delete</a><hr><font color="black"><b>You Posted this on {{ item.date }}</b><br> 
+		<b>Body:</b> {{ item.body }}</font>
+	</div>
+{% else %}
+<div class="updated-item-row">
+
+		<font color="black"><b>Posted by:</b> {{ item.user }} <b>on {{ item.date }}</b><br> 
+		<b>Body:</b> {{ item.body }}</font>
+	</div>
+	{% endif %}
+	{% empty %}
+	<center><h5>No FeedBacks Yet!!</h5></center>
+	{% endfor %}
+
+</div>
+{% else %}
+<div class="center-column">
+	<center><h5>FeedBack List</h5></h5></center>
+	<div class="d-grid gap-2">
+		<a href="{% url 'login' %}" class="btn btn-secondary">Login To Post us One</a>
+	</div><hr>
+{% for item in list_feed %}
+<div class="updated-item-row">
+
+		<font color="black"><b>Posted by:</b> {{ item.user }} <b>on {{ item.date }}</b><br> 
+		<b>Body:</b> {{ item.body }}</font>
+	</div>
+	{% empty %}
+	<center><h5>No FeedBacks Yet!!</h5></center>
+	{% endfor %}
+</div>
+{% endif %}
+{% endblock %}
+

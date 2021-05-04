@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="center-column">
+<form method="POST" action="">
+	<div class="card">
+		<br><div class="container">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Create Task" class="btn btn-info">
+	</div><br>
+</div><br>
+	<div class="d-grid gap-2">
+	<a href="{% url 'ClearList' %}" class="btn btn-secondary">Clear List</a>
+	<a href="{% url 'delete_all_crossed_items' %}" class="btn btn-warning">Delete All Crossed Items</a>
+	</div>
+</form>
+
+<script>
+	var name = "{{ user.id }}";
+	document.getElementById('userid').value = name;
+</script>
+
+<hr>
+{% for item in object_list %}
+
+{% if item.complete %}
+
+
+	<div class="updated-item-row">
+
+<!--<a href="{% url 'uncross' item.id %}" class="btn btn-dark btn-sm">Uncross!</a>-->
+<a href="{% url 'uncross' item.id %}"><img src="{% static 'images/cross.ico' %}" class="rounded-circle" height="20" width="20"></a>
+<!--<a href="{% url 'delete' item.id %}" class="btn btn-danger btn-sm">Delete</a>-->
+<a href="{% url 'delete' item.id %}"><img src="{% static 'images/original.ico' %}" class="float-end" height="30" width="25"></a>
+
+<strike><font color="black">{{ item.title }}</font></strike>
+</div>
+{% else %}
+
+<div class="item-row">
+
+
+<!--<a href="{% url 'cross' item.id %}" class="btn btn-dark btn-sm">Cross Off!</a>-->
+<a href="{% url 'cross' item.id %}"><img src="{% static '/images/uncheck.ico' %}" class="rounded-circle" height="20" width="20"></a>
+<!--<a href="{% url 'delete' item.id %}" class="btn btn-danger btn-sm">Delete</a>-->
+<a href="{% url 'delete' item.id %}"><img src="{% static 'images/original.ico' %}" class="float-end" height="30" width="25"></a>
+{{ item.title }}
+</div>
+
+
+{% endif %}
+
+
+{% endfor %}
+
+
+
+{% endblock %}

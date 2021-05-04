@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if request.user.id == page_user.id %}
+<div class="center-column">
+	<div class="card">
+		<div class="container">
+			<br>
+	<form method="POST" action="">
+		{% csrf_token %}
+		{{ form.as_p }}
+			<br>
+</div></div>
+<br>
+<h5>Change Password</h5>
+To Change Password, use this <a href="{% url 'password' request.user.id %}">form</a><br><br>
+		<input type="submit" value="Update" class="btn btn-info">
+
+<div class="d-grid gap-2">
+	<a href="{% url 'del' request.user.id %}" class="btn btn-danger">Cancel My Account</a>
+		<a href="{% url 'index' %}"  class="btn btn-secondary">Go Back</a>
+
+	</div>
+	</form>
+
+</div>
+{% else %}
+<div class="center-column">
+	<h5><center>You are not allowed to handle this Form!! Go <a href="{% url 'change_user_credentials' request.user.id %}">Back</a></center></h5> 
+</div>
+{% endif %}
+{% endblock %}

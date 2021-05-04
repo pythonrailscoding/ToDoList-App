@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="center-column">
+<form method="POST" action="">
+	{% csrf_token %}
+	<h6>Click on to Edit</h6>
+	{{ form.as_p }}
+	<input type="submit" value="Update FeedBack" class="btn btn-info">
+	<div class="d-grid gap-2">
+		<a href="{% url 'create-index' %}" class="btn btn-secondary">Go Back</a>
+	</div>
+</form>
+</div>
+{% endblock %}
