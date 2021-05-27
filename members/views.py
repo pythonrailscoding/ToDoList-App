@@ -19,12 +19,20 @@ class RegisterUser(CreateView):
 	'''
 
 def Register(request):
+	correct = False
 	form = UserCreationForm(request.POST or None)
 	if request.method == 'POST':
 		if form.is_valid():
+			correct = True
 			form.save()
 			return redirect('login')
-	return render(request, 'registration/register.html')
+			"""
+		else:
+			return HttpResponseRedirect("/register/correct=False")
+	if "correct" in request.GET:
+		correct = False
+		"""
+	return render(request, 'registration/register.html', {"form": form})
 
 class ChangeUser(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 	model = User
