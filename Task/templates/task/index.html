@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
 <div class="center-column">
+
 <form method="POST" action="">
 	<div class="card">
 		<br><div class="container">
@@ -13,6 +14,8 @@
 	<div class="d-grid gap-2">
 	<a href="{% url 'ClearList' %}" class="btn btn-secondary">Clear List</a>
 	<a href="{% url 'delete_all_crossed_items' %}" class="btn btn-warning">Delete All Crossed Items</a>
+	<a href="{% url 'generate_text_file' %}" class="btn btn-dark">Download your Task List in a Text File</a>
+	
 	</div>
 </form>
 

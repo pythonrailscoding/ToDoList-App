@@ -9,4 +9,5 @@ urlpatterns = [
 	path('delete_item/<int:pk>', views.deleteItem, name='delete'),
 	path('delete_all_crossed_items/', views.delete_all_crossed_items, name='delete_all_crossed_items'),
 	path('clear_list/', views.ClearList, name='ClearList'),
+	path("generate_text_file/", views.generate_text_file, name="generate_text_file"),
 ]
