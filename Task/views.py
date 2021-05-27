@@ -63,7 +63,7 @@ def generate_text_file(request):
 
 	for item in item_list:
 		if item.complete == True:
-			lines.append(f"Task Name: {item.title}\nStatus: Completed!\n\n\n")
+			lines.append(f"Task Name: {item.title}\n Status: Completed!\n\n\n")
 		else:
 			lines.append(f" Task Name: {item.title}\n Status: Not Completed!\n\n\n")
 	response.writelines(lines)
