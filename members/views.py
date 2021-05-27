@@ -23,7 +23,7 @@ def Register(request):
 	if request.method == 'POST':
 		if form.is_valid():
 			form.save()
-		return redirect('login')
+			return redirect('login')
 	return render(request, 'registration/register.html')
 
 class ChangeUser(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
