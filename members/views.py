@@ -3,12 +3,15 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.views.generic import CreateView, UpdateView
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-from .forms import ChangeForm
+from .forms import ChangeForm, Register
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import  login_required
 from django.core.mail import send_mail
+from django.views.generic.edit import FormView
+from django.conf import settings
+from django.contrib.auth import login
 
 '''
 class RegisterUser(CreateView):
@@ -18,21 +21,29 @@ class RegisterUser(CreateView):
 	success_url = reverse_lazy('login')
 	'''
 
-def Register(request):
-	correct = False
-	form = UserCreationForm(request.POST or None)
-	if request.method == 'POST':
-		if form.is_valid():
-			correct = True
-			form.save()
-			return redirect('login')
-			"""
-		else:
-			return HttpResponseRedirect("/register/correct=False")
-	if "correct" in request.GET:
-		correct = False
-		"""
-	return render(request, 'registration/register.html', {"form": form})
+class Register(FormView):
+	template_name = 'registration/register.html'
+	form_class = Register
+	redirect_authenticated_user = True
+	success_url = reverse_lazy('index')
+
+	def form_valid(self, form):
+		user = form.save()
+		if user is not None:
+			login(self.request, user)
+		subject = 'You have signed up successfully! Congrats!'
+		message = f'Hi {user.username}, Thanks or signing up! Now, you can start building out your TaskListApp out of the Box! Happy Task Managing!'
+		email_from = settings.EMAIL_HOST_USER
+		recipient_list = [user.email, ]
+		send_mail( subject, message, email_from, recipient_list )
+		
+		return super(Register, self).form_valid(form)
+
+	def get(self, *args, **kwargs):
+		if self.request.user.is_authenticated:
+			return redirect('index')
+		return super(Register, self).get(*args, **kwargs)
+
 
 class ChangeUser(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 	model = User
