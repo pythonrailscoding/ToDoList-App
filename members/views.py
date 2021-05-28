@@ -32,7 +32,7 @@ class Register(FormView):
 		if user is not None:
 			login(self.request, user)
 		subject = 'You have signed up successfully! Congrats!'
-		message = f'Hi {user.username}, Thanks or signing up! Now, you can start building out your TaskListApp out of the Box! Happy Task Managing!'
+		message = f'Hi {user.username}, Thanks for signing up! Now, you can start building out your TaskListApp out of the Box! Happy Task Managing!'
 		email_from = settings.EMAIL_HOST_USER
 		recipient_list = [user.email, ]
 		send_mail( subject, message, email_from, recipient_list )
