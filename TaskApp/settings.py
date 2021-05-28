@@ -74,7 +74,7 @@ TEMPLATES = [
         },
     },
 ]
-
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 WSGI_APPLICATION = 'TaskApp.wsgi.application'
 
 
