@@ -53,7 +53,7 @@ def delete(request, pk):
 def feedback_on_delete(request):
 	if request.method == 'POST':
 		feed = request.POST["feed"]
-		new = FedBackOnDelete.objects.create(feed=feed,)
+		new = FeedBackOnDelete.objects.create(feed=feed,)
 		new.save()
 		return redirect("login")
 	return render(request, "del.html", {})
