@@ -51,15 +51,12 @@ def delete(request, pk):
 		return redirect('create-index')
 
 def feedback_on_delete(request):
-	if request.user.is_authenticated():
-		return redirect("index")
-	else:
-		if request.method == 'POST':
-			feed = request.POST["feed"]
-			new = FedBackOnDelete(feed=feed,)
-			new.save()
-			return redirect("login")
-		return render(request, "del.html", {})
+	if request.method == 'POST':
+		feed = request.POST["feed"]
+		new = FedBackOnDelete(feed=feed,)
+		new.save()
+		return redirect("login")
+	return render(request, "del.html", {})
 
 
 
