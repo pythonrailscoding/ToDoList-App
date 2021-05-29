@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
+{% if user.is_authenticated %}
+<center><h4>You Are Already Logged in! <a href="{% url 'index' %}">Go Back</a></h4></center>
+{% else %}
 <div class="center-column">
 	
 <form method="POST" action="">
@@ -9,6 +12,6 @@
 	<div class="d-grid gap-2">
 		<a href="{% url 'index' %}" class="btn btn-secondary">Go Back</a>
 	</div>
-	
+{% endif %}
 {% endblock %}
 

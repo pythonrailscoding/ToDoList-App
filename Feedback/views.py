@@ -55,8 +55,11 @@ def feedback_on_delete(request):
 		feed = request.POST["feed"]
 		new = FeedBackOnDelete.objects.create(feed=feed,)
 		new.save()
-		return redirect("login")
+		return redirect("success")
 	return render(request, "del.html", {})
+
+def success_post(request):
+	return render(request, "feedback_revert.html", {})
 
 
 

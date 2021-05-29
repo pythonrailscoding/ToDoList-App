@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<center><h4>You Are Already Logged in! <a href="{% url 'index' %}">Go Back</a></h4></center>
+{% else %}
+<div class="center-column">
+	
+<h4><center>Your Feedback was Submitted Successfully! We will look into it and will try to resolve any problems if mentioned</center></h4>
+{% endif %}
+{% endblock %}
+
