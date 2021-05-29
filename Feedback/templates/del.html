@@ -11,9 +11,7 @@
 	{% csrf_token %}
 	<textarea class="form-control" name="feed" rows="3" placeholder="Enter your feedback"></textarea>
 	<input type="submit" value="Post Feedback" class="btn btn-info">
-	<div class="d-grid gap-2">
-		<a href="{% url 'index' %}" class="btn btn-secondary">Go Back</a>
-	</div>
+	
 {% endif %}
 {% endblock %}
 
