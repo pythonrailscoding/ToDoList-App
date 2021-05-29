@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 {% if user.is_authenticated %}
+<div class="center-column">
 <center><h4>You Are Already Logged in! <a href="{% url 'index' %}">Go Back</a></h4></center>
+</div>
 {% else %}
 <div class="center-column">
 	
