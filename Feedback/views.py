@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
+from .models import FeedBackOnDelete
 
 def Create(request):
 	list_feed = FeedBack.objects.all().order_by('-id')
@@ -48,6 +49,17 @@ def delete(request, pk):
 		return redirect('create-index')
 	else:
 		return redirect('create-index')
+
+def feedback_on_delete(request):
+	if request.user.is_authenticated():
+		return redirect("index")
+	else:
+		if request.method == 'POST':
+			feed = request.POST["feed"]
+			new = FedBackOnDelete(feed=feed,)
+			new.save()
+			return redirect("login")
+		return render(request, "del.html", {})
 
 
 

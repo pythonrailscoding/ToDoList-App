@@ -1,3 +1,7 @@
 from django.db import models
 
-# Create your models here.
+class FeedBackOnDelete(models.Model):
+    feed = models.TextField()
+
+    def __str__(self):
+        return self.feed
