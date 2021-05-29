@@ -74,7 +74,7 @@ def delete_user(request, pk):
 	client = User.objects.get(id=pk)
 	if request.user.id == client.id:
 		template = render_to_string("registration/cancel_email.html", {"user": user.username})
-		subject = 'You have signed up successfully! Congrats!'
+		subject = 'Your account has been successfully deleted!'
 		message = template
 		email_from = settings.EMAIL_HOST_USER
 		recipient_list = [user.email, ]
