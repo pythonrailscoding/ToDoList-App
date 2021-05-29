@@ -32,7 +32,7 @@ class Register(FormView):
 		user = form.save()
 		if user is not None:
 			login(self.request, user)
-		template = render_to_string("email.html", {"user": user.username})
+		template = render_to_string("registration/email.html", {"user": user.username})
 		subject = 'You have signed up successfully! Congrats!'
 		message = template
 		email_from = settings.EMAIL_HOST_USER
