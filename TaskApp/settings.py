@@ -148,6 +148,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'shriyanshpurohit2007@gmail.com'
 EMAIL_HOST_PASSWORD = 'pant1975varsity'
+DEFAULT_FROM_EMAIL = 'ToDoListApp Team <dj-taskapp.herokuapp.com>'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'index'
