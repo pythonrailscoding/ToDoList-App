@@ -73,6 +73,12 @@ class ChangePassword(LoginRequiredMixin, PasswordChangeView):
 def delete_user(request, pk):
 	client = User.objects.get(id=pk)
 	if request.user.id == client.id:
+		template = ("registration/cancel_email.html", {"user":client.username})
+		subject = "Your account was deleted successfully!"
+		message = template
+		email_from = settings.EMAIL_HOST_USER
+		recipient = [client.email,]
+		send_mail(subject, message, email_from, recipient)
 		client.delete()
 		return redirect('logout')
 	else:
