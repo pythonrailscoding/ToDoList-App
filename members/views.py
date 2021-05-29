@@ -12,6 +12,7 @@ from django.core.mail import send_mail
 from django.views.generic.edit import FormView
 from django.conf import settings
 from django.contrib.auth import login
+from django.template.loader import render_to_string
 
 '''
 class RegisterUser(CreateView):
@@ -31,8 +32,9 @@ class Register(FormView):
 		user = form.save()
 		if user is not None:
 			login(self.request, user)
+		template = render_to_string("email.html", {"user": user.username})
 		subject = 'You have signed up successfully! Congrats!'
-		message = f'Hi {user.username}, Thanks for signing up! Your account is successfully linked up with your email. We promise not to spam you!! Real Promise:) Now, you can start building out your TaskListApp out of the Box! Happy Task Managing!'
+		message = template
 		email_from = settings.EMAIL_HOST_USER
 		recipient_list = [user.email, ]
 		send_mail( subject, message, email_from, recipient_list )
