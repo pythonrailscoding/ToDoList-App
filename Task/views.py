@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import TaskModelSerializers
+from django.contrib.auth.models import User
 
 @login_required
 def TaskList(request):
@@ -99,3 +100,36 @@ def TaskCreate(request):
 		return redirect('index')
 	return render(request, 'task/create.html', {'form': form})
 '''
+
+@login_required
+@api_view(["POST"])
+def api_create(request):
+	serializer = TaskModelSerializers(data=request.data)
+	user_current = User.objects.get(id=request.user.id)
+	if serializer.is_valid():
+		serializer.save(user=user_current)
+		return Response("Success! Item was submitted Successfully!")
+	else:
+		return Response("Item not Submitted! Maybe, User ID is incorrect or not avauilable. Check for Syntax errors!")
+
+@login_required
+def api_views_list(request):
+	return render(request, "task/api_file.html", {})
+
+"""@login_required
+@api_view(["POST"])
+def api_update(request, pk):
+	item = TaskModel.objects.get(id=pk)
+	if item:
+		if item.user.id == request.user.id:
+			serializer = TaskModelSerializers(instance=item, data=request.data)
+			user_current = User.objects.get(id=request.user.id)
+			if serializer.is_valid():
+				serializer.save(user=user_current)
+				return Response("Success! Item was submitted Successfully!")
+			else:
+				return Response("Item not Submitted! Maybe, User ID is incorrect or not avauilable. Check for Syntax errors!")
+		else:
+			return redirect("index")
+	else:
+		return redirect("index")"""

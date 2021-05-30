@@ -12,4 +12,7 @@ urlpatterns = [
 	path("generate_text_file/", views.generate_text_file, name="generate_text_file"),
 	path("api-list/", views.api_list, name='api-list'),
 	path("individual_api_list/<int:pk>/", views.individual_api_list, name="api-ind"),
+	path("create-api/", views.api_create, name="create-api"),
+	path("api_views_list/", views.api_views_list, name="api"),
+	#path('api_update_view/<int:pk>/', views.api_update, name="api_update"),
 ]
