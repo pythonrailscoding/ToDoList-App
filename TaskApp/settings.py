@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'Task',
     'members',
     'Feedback',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

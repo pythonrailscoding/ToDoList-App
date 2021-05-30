@@ -16,10 +16,13 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'create-index' %}">FeedBack List</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'api-list' %}">Your List API</a>
+        </li>
        
       </ul>
       
-        <a href="{% url 'logout' %}" class="btn btn-outline-secondary btn-sm">Logout</a>
+        <a href="{% url 'logout' %}" class="btn btn-outline-info btn-sm">Logout</a>
       
     </div>
     {% else %}

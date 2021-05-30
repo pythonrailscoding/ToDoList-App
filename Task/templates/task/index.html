@@ -36,6 +36,7 @@
 <a href="{% url 'uncross' item.id %}"><img src="{% static 'images/cross.ico' %}" class="rounded-circle" height="20" width="20"></a>
 <!--<a href="{% url 'delete' item.id %}" class="btn btn-danger btn-sm">Delete</a>-->
 <a href="{% url 'delete' item.id %}"><img src="{% static 'images/original.ico' %}" class="float-end" height="30" width="25"></a>
+<a href="{% url 'api-ind' item.id %}"><img src="{% static 'images/api.png' %}" class="float-end" height="30" width="50"></a>
 
 <strike><font color="black">{{ item.title }}</font></strike>
 </div>
@@ -48,6 +49,7 @@
 <a href="{% url 'cross' item.id %}"><img src="{% static '/images/uncheck.ico' %}" class="rounded-circle" height="20" width="20"></a>
 <!--<a href="{% url 'delete' item.id %}" class="btn btn-danger btn-sm">Delete</a>-->
 <a href="{% url 'delete' item.id %}"><img src="{% static 'images/original.ico' %}" class="float-end" height="30" width="25"></a>
+<a href="{% url 'api-ind' item.id %}"><img src="{% static 'images/api_dark.png' %}" class="float-end" height="30" width="50"></a>
 {{ item.title }}
 </div>
 

@@ -10,4 +10,6 @@ urlpatterns = [
 	path('delete_all_crossed_items/', views.delete_all_crossed_items, name='delete_all_crossed_items'),
 	path('clear_list/', views.ClearList, name='ClearList'),
 	path("generate_text_file/", views.generate_text_file, name="generate_text_file"),
+	path("api-list/", views.api_list, name='api-list'),
+	path("individual_api_list/<int:pk>/", views.individual_api_list, name="api-ind"),
 ]

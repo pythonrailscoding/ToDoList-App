@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect
+from rest_framework import serializers
 from .models import TaskModel
 from .forms import TaskForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponse
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .serializers import TaskModelSerializers
 
 @login_required
 def TaskList(request):
@@ -70,6 +74,22 @@ def generate_text_file(request):
 
 	return response
 
+@login_required
+@api_view(["GET"])
+def api_list(request):
+	user_task_list = TaskModel.objects.filter(user=request.user.id)
+	serializer = TaskModelSerializers(user_task_list, many=True)
+	return Response(serializer.data)
+
+@login_required
+@api_view(["GET"])
+def individual_api_list(request, pk):
+	item = TaskModel.objects.get(id=pk)
+	if item.user.id == request.user.id:
+		serializer = TaskModelSerializers(item, many=False)
+		return Response(serializer.data)
+	else:
+		return redirect("index") 
 
 '''
 def TaskCreate(request):
