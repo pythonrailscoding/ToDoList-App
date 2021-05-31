@@ -147,9 +147,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'shriyanshpurohit2007@gmail.com'
-EMAIL_HOST_PASSWORD = 'weqhutrbdshfudzm'
-DEFAULT_FROM_EMAIL = 'ToDoListApp Team <dj-taskapp.herokuapp.com>'
+EMAIL_HOST_USER = 'Your Email'
+EMAIL_HOST_PASSWORD = 'Your Password'
+
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'index'
