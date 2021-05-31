@@ -15,4 +15,5 @@ urlpatterns = [
 	path("create-api/", views.api_create, name="create-api"),
 	path("api_views_list/", views.api_views_list, name="api"),
 	#path('api_update_view/<int:pk>/', views.api_update, name="api_update"),
+	path("generate_csv_file/", views.generate_csv_file, name="generate_csv_file"),
 ]

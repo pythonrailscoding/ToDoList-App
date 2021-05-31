@@ -2,30 +2,33 @@
 {% load static %}
 {% block content %}
 <div class="center-column">
-Want to check more of our Products? Check our <a href="https://opensourceweather.herokuapp.com"> Weather App</a> and our <a href="https://typeandenter.herokuapp.com">Search Engine</a> and our <a href="https://opensourcedictionary.herokuapp.com"> Dictionary App</a>!! 
-<br><br>
+
 <form method="POST" action="">
-	<div class="card">
-		<br><div class="container">
-	{% csrf_token %}
-	{{ form.as_p }}
-	<input type="submit" value="Create Task" class="btn btn-info">
-	</div><br>
-</div><br>
-	<div class="d-grid gap-2">
-	<a href="{% url 'ClearList' %}" class="btn btn-secondary">Clear List</a>
-	<a href="{% url 'delete_all_crossed_items' %}" class="btn btn-warning">Delete All Crossed Items</a>
-	<a href="{% url 'generate_text_file' %}" class="btn btn-dark">Download your Task List in a Text File</a>
 	
-	</div>
+	{% csrf_token %}
+	{{ form.user }}
+	{{ form.title }}
+	<input type="submit" value="Create Task" class="btn btn-info">
+	
+	
 </form>
 
 <script>
 	var name = "{{ user.id }}";
 	document.getElementById('userid').value = name;
 </script>
-
-<hr>
+</div>
+<div class="center-column">
+	<form method="POST" action="">
+	
+		{% csrf_token %}
+		<input required type="text" name="searched">
+		<input type="submit" value="Search Task by Name" class="btn btn-info">
+		
+		
+	</form>
+	</div>
+	<div class="center-column">
 {% for item in object_list %}
 
 {% if item.complete %}

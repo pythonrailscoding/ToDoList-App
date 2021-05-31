@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import TaskModelSerializers
 from django.contrib.auth.models import User
+import csv
 
 @login_required
 def TaskList(request):
@@ -17,7 +18,12 @@ def TaskList(request):
 	if request.method == 'POST':
 		if form.is_valid():
 			form.save()
-		return redirect('index')
+			return redirect('index')
+		else:
+			search = request.POST["searched"]
+			object_list = TaskModel.objects.filter(user=request.user.id).filter(title__contains=search).order_by('id')
+		
+			
 	return render(request, 'task/index.html', {'object_list': object_list, 'form': form})
 
 @login_required
@@ -115,6 +121,25 @@ def api_create(request):
 @login_required
 def api_views_list(request):
 	return render(request, "task/api_file.html", {})
+
+@login_required
+def generate_csv_file(request):
+	response = HttpResponse(content_type="text/csv")
+	response["Content-Disposition"] = "attachment; filename=generated_task_list.csv"
+	# Create a csv writer
+	writer = csv.writer(response)
+	
+	item_list = TaskModel.objects.filter(user=request.user.id)
+
+	writer.writerow(["Task Name", "Status"])
+
+	for item in item_list:
+		if item.complete == True:
+			writer.writerow([item.title, "Completed!"])
+		else:
+			writer.writerow([item.title, "Not Completed!"])
+
+	return response
 
 """@login_required
 @api_view(["POST"])
