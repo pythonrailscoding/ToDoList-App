@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 
 @login_required
 def TaskList(request):
-	object_list = TaskModel.objects.filter(user=request.user.id)
+	object_list = TaskModel.objects.filter(user=request.user.id).order_by('id')
 	form = TaskForm(request.POST or None)
 	if request.method == 'POST':
 		if form.is_valid():
