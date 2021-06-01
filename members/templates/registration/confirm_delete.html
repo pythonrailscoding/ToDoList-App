@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="center-column">
+	
+		<div class="container">
+			<br>
+	
+		<center><h5><font color="red">Are you sure to delete your account? This will DELETE ALL OF YOUR DATA!!</font></center>
+</div>
+		
+
+<div class="d-grid gap-2">
+    <a href="{% url 'del' request.user.id %}" class="btn btn-danger">Yes, I'am sure!!</a>
+		<a href="{% url 'change_user_credentials' request.user.id %}"  class="btn btn-secondary">Go Back</a>
+	</div>
+	
+
+</div>
+{% endblock %}
