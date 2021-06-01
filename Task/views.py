@@ -116,7 +116,7 @@ def api_create(request):
 		serializer.save(user=user_current)
 		return Response("Success! Item was submitted Successfully!")
 	else:
-		return Response("Item not Submitted! Maybe, User ID is incorrect or not avauilable. Check for Syntax errors!")
+		return Response("Item not Submitted Successfully! Maybe, User ID is incorrect or not available. Check for Syntax errors!")
 
 @login_required
 def api_views_list(request):
