@@ -84,5 +84,6 @@ def delete_user(request, pk):
 	else:
 		return redirect('index')
 
+@login_required
 def confirm_delete(request):
 	return render(request, "registration/confirm_delete.html", {})
