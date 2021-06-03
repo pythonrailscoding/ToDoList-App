@@ -4,12 +4,16 @@ from .models import TaskModel
 from .forms import TaskForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import TaskModelSerializers
 from django.contrib.auth.models import User
 import csv
+from reportlab.lib.units import inch
+from reportlab.pdfgen.canvas import Canvas
+from reportlab.lib.pagesizes import letter
+import io
 
 @login_required
 def TaskList(request):
@@ -158,3 +162,36 @@ def api_update(request, pk):
 			return redirect("index")
 	else:
 		return redirect("index")"""
+
+@login_required
+def generate_pdf_file(request):
+	buf = io.BytesIO()
+	c = Canvas(buf, pagesize=letter, bottomup=0)
+	# Create a Text Object
+	textobj = c.beginText()
+	textobj.setTextOrigin(inch, inch)
+
+	textobj.setFont("Helvetica", 14)
+
+	lines = []
+	item_list = TaskModel.objects.filter(user=request.user.id)
+
+	for item in item_list:
+		if item.complete == True:
+			lines.append(f"Task Name: {item.title}")
+			lines.append("Status: Completed!")
+			lines.append(" ")
+		else:
+			lines.append(f"Task Name: {item.title}")
+			lines.append("Status: Not Completed!")
+			lines.append(" ")
+		
+	for line in lines:
+		textobj.textLine(line)
+
+	c.drawText(textobj)
+	c.showPage()
+	c.save()
+	buf.seek(0)
+
+	return FileResponse(buf, as_attachment=True, filename="generated_task_list.pdf")
